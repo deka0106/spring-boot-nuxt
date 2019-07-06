@@ -4,3 +4,4 @@ pluginManagement {
     }
 }
 rootProject.name = "spring-boot-nuxt"
+include("web")
