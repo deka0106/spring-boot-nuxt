@@ -17,9 +17,7 @@
           </p>
           <p>
             For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank">
-              documentation </a
-            >.
+            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
           </p>
           <p>
             If you have questions, please join the official
@@ -64,14 +62,16 @@
   </v-layout>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
-export default {
+@Component({
   components: {
     Logo,
     VuetifyLogo
   }
-}
+})
+export default class extends Vue {}
 </script>

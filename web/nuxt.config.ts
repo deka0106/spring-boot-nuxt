@@ -1,20 +1,22 @@
 import colors from 'vuetify/es5/util/colors'
+import NuxtConfiguration from '@nuxt/config'
+const pkg = require('./package')
 
-export default {
+const config: NuxtConfiguration = {
   mode: 'spa',
   /*
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + pkg.name,
+    title: pkg.name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: pkg.description || ''
       }
     ],
     link: [
@@ -76,3 +78,5 @@ export default {
     extend(config, ctx) {}
   }
 }
+
+export default config
