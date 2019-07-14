@@ -1,6 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 import NuxtConfiguration from '@nuxt/config'
-const pkg = require('./package')
 
 const config: NuxtConfiguration = {
   mode: 'spa',
@@ -8,15 +7,15 @@ const config: NuxtConfiguration = {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + pkg.name,
-    title: pkg.name || '',
+    titleTemplate: '%s - ' + process.env.npm_package_name,
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: pkg.description || ''
+        content: process.env.npm_package_description || ''
       }
     ],
     link: [
@@ -47,7 +46,8 @@ const config: NuxtConfiguration = {
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/eslint-module'
   ],
   /*
    ** Axios module configuration
@@ -78,7 +78,18 @@ const config: NuxtConfiguration = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx): void {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        if (!config.module) return
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|ts|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   },
   proxy: {
     '/api': 'http://localhost:8080'
