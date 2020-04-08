@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    val kotlinVersion = "1.3.41"
+    val kotlinVersion = "1.3.71"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
-    id("org.springframework.boot") version "2.1.6.RELEASE"
-    id("io.spring.dependency-management") version "1.0.8.RELEASE"
+    id("org.springframework.boot") version "2.2.6.RELEASE"
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
 }
 
 group = "work.deka"
@@ -17,8 +17,6 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 repositories {
     mavenCentral()
 }
-
-val swaggerVersion = "2.9.2"
 
 dependencies {
     // Kotlin
@@ -32,8 +30,8 @@ dependencies {
         exclude(module = "junit")
     }
     // Swagger
-    implementation("io.springfox:springfox-swagger2:$swaggerVersion")
-    implementation("io.springfox:springfox-swagger-ui:$swaggerVersion")
+    implementation("io.springfox:springfox-swagger2:2.+")
+    implementation("io.springfox:springfox-swagger-ui:2.+")
     // Other
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("com.h2database:h2")
@@ -56,8 +54,8 @@ tasks {
         dependsOn("generateResources")
     }
     register<Copy>("generateResources") {
-        dependsOn(":web:generate")
-        from("web/dist") {
+        dependsOn(":client:generate")
+        from("client/dist") {
             include("**/*.*")
         }
         into("${project.buildDir}/resources/main/static")

@@ -1,4 +1,4 @@
-package work.deka.springbootnuxt.configuration
+package work.deka.springbootnuxt.config
 
 import org.springframework.boot.autoconfigure.web.ResourceProperties
 import org.springframework.context.annotation.Configuration
